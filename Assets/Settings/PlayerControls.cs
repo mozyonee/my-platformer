@@ -8,6 +8,7 @@ public class PlayerControls : IDisposable
     readonly InputActionMap map;
     readonly InputAction move;
     readonly InputAction jump;
+    readonly InputAction interact;
 
     public PlayerControls()
     {
@@ -18,6 +19,7 @@ public class PlayerControls : IDisposable
         map = asset.FindActionMap("Player", true);
         move = map.FindAction("Move", true);
         jump = map.FindAction("Jump", true);
+        interact = map.FindAction("Interact", true);
     }
 
     public PlayerActions Player => new(this);
@@ -41,8 +43,6 @@ public class PlayerControls : IDisposable
 
         public InputAction Move => wrapper.move;
         public InputAction Jump => wrapper.jump;
-
-        public void Enable() => wrapper.Enable();
-        public void Disable() => wrapper.Disable();
+        public InputAction Interact => wrapper.interact;
     }
 }

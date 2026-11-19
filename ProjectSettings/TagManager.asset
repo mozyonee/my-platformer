@@ -14,9 +14,10 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
-  - 
+  - Hazard
+  - Interactable
+  - Player
+  - Enemy
   - 
   - 
   - 

@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -82,6 +91,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f6a7b8c9-d0e1-2345-fabc-1234567890ab",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c6d7e8f9-a0b1-2345-6789-0abcdef01234",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -93,7 +113,7 @@
                 },
                 {
                     "name": "Arrows",
-                    "id": "016698a3-5d8b-49d9-8228-c23fb2c2a6b2",
+                    "id": "d77fa57d-67e8-402e-a9b6-08f1a0f2203b",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -104,7 +124,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "0a9926e3-8f35-4b90-80b6-ec035a5f8efe",
+                    "id": "6125d788-3809-4dc3-801e-be509915dc8d",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -115,7 +135,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "26f41f64-b7b4-48a4-842a-5a9c675bd050",
+                    "id": "ac26cb7c-d700-41a0-af21-1a88bf1807e4",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -126,7 +146,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "e770ef0e-56d0-48dc-96dc-b25db35e57d9",
+                    "id": "73a56eaa-2610-476c-b8f5-0b4df3a44a03",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -137,7 +157,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "7c6d3ff9-823a-444e-aa1f-e5a31c9a7cba",
+                    "id": "7883227b-32dd-4df3-a9fb-825843259068",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
