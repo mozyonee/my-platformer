@@ -30,7 +30,7 @@ public class PlayerControls : IDisposable
         if (asset == null)
             return;
         asset.Disable();
-        Object.Destroy(asset);
+        UnityEngine.Object.Destroy(asset);
     }
 
     public struct PlayerActions
