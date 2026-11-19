@@ -9,6 +9,7 @@ public class PlayerControls : IDisposable
     readonly InputAction move;
     readonly InputAction jump;
     readonly InputAction interact;
+    readonly InputAction pause;
 
     public PlayerControls()
     {
@@ -20,6 +21,7 @@ public class PlayerControls : IDisposable
         move = map.FindAction("Move", true);
         jump = map.FindAction("Jump", true);
         interact = map.FindAction("Interact", true);
+        pause = map.FindAction("Pause", true);
     }
 
     public PlayerActions Player => new(this);
@@ -44,5 +46,6 @@ public class PlayerControls : IDisposable
         public InputAction Move => wrapper.move;
         public InputAction Jump => wrapper.jump;
         public InputAction Interact => wrapper.interact;
+        public InputAction Pause => wrapper.pause;
     }
 }
