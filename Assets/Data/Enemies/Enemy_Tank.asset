@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9216c6ec9be74e32a5f8d3251ce9b3b, type: 3}
+  m_Name: Enemy_Tank
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
+  patrolSpeed: 0.8
+  chaseSpeed: 1.8
+  chaseRange: 5
+  attackRange: 1.2
+  attackRadius: 0.6
+  verticalTolerance: 1.5
+  chaseExitFactor: 1.2
+  loseTargetTime: 1
+  stopDistance: 0.6
+  maxHealth: 90
+  damage: 20
+  telegraphTime: 0.8
+  recoveryTime: 0.7
+  hurtTime: 0.3
+  tint: {r: 0.37, g: 0.42, b: 0.49, a: 1}
+  sizeScale: 1.35
+  telegraphSfx: {fileID: 8300000, guid: 269883af631e6487f852bde9df339866, type: 3}
+  ranged: 0
