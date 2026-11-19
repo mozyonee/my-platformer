@@ -12,6 +12,7 @@ public class Checkpoint : MonoBehaviour
             return;
         claimed = true;
         respawn.SetCheckpoint(transform.position);
+        SaveSystem.Save(GameProgress.ToData());
         var sr = GetComponent<SpriteRenderer>();
         if (sr == null)
             return;
