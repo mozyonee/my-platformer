@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControls : IDisposable
@@ -10,8 +11,10 @@ public class PlayerControls : IDisposable
 
     public PlayerControls()
     {
-        asset = InputActionAsset.FromJson(System.IO.File.ReadAllText(
-            UnityEngine.Application.dataPath + "/Settings/PlayerControls.inputactions"));
+        var source = Resources.Load<InputActionAsset>("PlayerControls");
+        if (source == null)
+            throw new InvalidOperationException("Missing Resources/PlayerControls.inputactions");
+        asset = InputActionAsset.FromJson(source.ToJson());
         map = asset.FindActionMap("Player", true);
         move = map.FindAction("Move", true);
         jump = map.FindAction("Jump", true);
@@ -19,9 +22,16 @@ public class PlayerControls : IDisposable
 
     public PlayerActions Player => new(this);
 
-    public void Enable() => map.Enable();
-    public void Disable() => map.Disable();
-    public void Dispose() => map.Disable();
+    public void Enable() => asset.Enable();
+    public void Disable() => asset.Disable();
+
+    public void Dispose()
+    {
+        if (asset == null)
+            return;
+        asset.Disable();
+        Object.Destroy(asset);
+    }
 
     public struct PlayerActions
     {
