@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControls : IDisposable
@@ -7,14 +8,18 @@ public class PlayerControls : IDisposable
     readonly InputActionMap map;
     readonly InputAction move;
     readonly InputAction jump;
+    readonly InputAction interact;
 
     public PlayerControls()
     {
-        asset = InputActionAsset.FromJson(System.IO.File.ReadAllText(
-            UnityEngine.Application.dataPath + "/Settings/PlayerControls.inputactions"));
+        var source = Resources.Load<InputActionAsset>("PlayerControls");
+        if (source == null)
+            throw new InvalidOperationException("Missing Resources/PlayerControls.inputactions");
+        asset = UnityEngine.Object.Instantiate(source);
         map = asset.FindActionMap("Player", true);
         move = map.FindAction("Move", true);
         jump = map.FindAction("Jump", true);
+        interact = map.FindAction("Interact", true);
     }
 
     public PlayerActions Player => new(this);
@@ -31,8 +36,6 @@ public class PlayerControls : IDisposable
 
         public InputAction Move => wrapper.move;
         public InputAction Jump => wrapper.jump;
-
-        public void Enable() => wrapper.Enable();
-        public void Disable() => wrapper.Disable();
+        public InputAction Interact => wrapper.interact;
     }
 }

@@ -1,4 +1,6 @@
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -24,7 +26,11 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
     [SerializeField] AudioClip[] footstepClips;
-    CameraShake cameraShake;
+    [SerializeField] Transform interactPoint;
+    [SerializeField] float interactRadius = 0.6f;
+    [SerializeField] LayerMask interactableLayer;
+
+    CinemachineImpulseSource impulseSource;
 
     float moveInput;
     bool isGrounded;
@@ -42,13 +48,16 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         controls = new PlayerControls();
-        if (cameraShake == null)
-            cameraShake = FindAnyObjectByType<CameraShake>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    void OnEnable() => controls.Player.Enable();
-    void OnDisable() => controls.Player.Disable();
-    void OnDestroy() => controls.Dispose();
+    void OnEnable() => controls.Enable();
+    void OnDisable() => controls.Disable();
+    void OnDestroy()
+    {
+        if (controls != null)
+            controls.Dispose();
+    }
 
     void Update()
     {
@@ -59,6 +68,7 @@ public class PlayerController : MonoBehaviour
         UpdateVisuals();
         UpdateFootsteps();
         CheckLandingShake();
+        TryInteract();
         wasGrounded = isGrounded;
     }
 
@@ -118,15 +128,16 @@ public class PlayerController : MonoBehaviour
     {
         if (animator != null)
             animator.SetFloat("Speed", Mathf.Abs(body.linearVelocity.x));
+        // Kenney player art faces left; flip when moving right.
         if (Mathf.Abs(moveInput) > 0.01f)
-            spriteRenderer.flipX = moveInput < 0f;
+            spriteRenderer.flipX = moveInput > 0f;
     }
 
     void UpdateFootsteps()
     {
         if (!isGrounded || Mathf.Abs(body.linearVelocity.x) <= 0.5f)
         {
-            stepTimer = 0f;
+            stepTimer = stepInterval;
             return;
         }
         stepTimer += Time.deltaTime;
@@ -153,10 +164,19 @@ public class PlayerController : MonoBehaviour
             peakFallSpeed = Mathf.Max(peakFallSpeed, -body.linearVelocity.y);
             return;
         }
-        if (!wasGrounded && peakFallSpeed >= hardLandingSpeed && cameraShake != null)
-            cameraShake.Shake(0.12f, 0.12f);
+        if (!wasGrounded && peakFallSpeed >= hardLandingSpeed && impulseSource != null)
+            impulseSource.GenerateImpulseWithForce(0.3f);
         if (!wasGrounded)
             peakFallSpeed = 0f;
+    }
+
+    void TryInteract()
+    {
+        if (!controls.Player.Interact.WasPressedThisFrame() || interactPoint == null)
+            return;
+        var hit = Physics2D.OverlapCircle(interactPoint.position, interactRadius, interactableLayer);
+        if (hit != null && hit.TryGetComponent<IInteractable>(out var target))
+            target.Interact();
     }
 
     void OnDrawGizmosSelected()
